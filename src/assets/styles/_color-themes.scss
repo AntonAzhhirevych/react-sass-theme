@@ -1,0 +1,44 @@
+//shortcuts
+$text: 'text';
+$bg: 'bg';
+
+$bg--light: #e9e8e8;
+$bg--dark: #2b2b2b;
+
+$text--light: #2b2b2b;
+$text--dark: #e9e8e8;
+
+//themes
+$themes: (
+  default: (
+    text: $text--light,
+    bg: $bg--light,
+  ),
+  dark: (
+    text: $text--dark,
+    bg: $bg--dark,
+  ),
+);
+
+@mixin themed() {
+  @each $theme, $map in $themes {
+    .theme--#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function t($key) {
+  @return map-get($theme-map, $key);
+}

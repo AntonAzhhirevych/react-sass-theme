@@ -1,0 +1,22 @@
+@import '../assets/styles/color-themes';
+
+.app {
+  &__wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include themed() {
+      background-color: t($bg);
+    }
+  }
+
+  &__text {
+    text-transform: uppercase;
+    @include themed() {
+      color: t($text);
+    }
+  }
+}
